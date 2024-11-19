@@ -1,0 +1,36 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: "Afacad Flux", sans-serif;
+}
+h1{
+    font-size:2.5rem;
+}
+#container{
+    background-image:url('./doPPSI.png');
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+#login{
+    padding:3em;
+    border:3px solid black;
+    border-radius:10px;
+    background:white;
+    display:flex;
+    flex-direction:column;
+    gap:2em;
+}
+button{
+    background:white;
+    font-size:1.2rem;
+    padding:1em 0.5em;
+    transition:all 0.5s ease;
+}
+button:hover{
+    cursor:pointer;
+    background:black;
+    color:white;
+}

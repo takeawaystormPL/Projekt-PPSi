@@ -1,0 +1,123 @@
+:root{
+  --header-background:rgb(38, 115, 216)
+}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+#container{
+  position:relative;
+}
+header{
+  background:var(--header-background);
+  color:white;
+  display:flex;
+  justify-content:space-between;
+  padding:1em;
+  font-family:"Afacad Flux", sans-serif;
+  font-weight:300;
+  font-style:italic;
+  font-size:1.5rem;
+}
+button{
+  background:white;
+  color:black;
+  border:2px solid black;
+  border-radius:10px;
+  transition:all 0.5s ease;
+  padding:1em;
+  visibility:inherit;
+}
+button:hover{
+  background:black;
+  color:White;
+}
+#addTask{
+  border:3px solid black;
+  border-radius:10px;
+  padding:2em;
+  font-family:"Afacad Flix",sans-serif;
+  width:fit-content;
+  transition:all .3s ease;
+  position:fixed;
+  right:40%;
+  top:30%;
+}
+#addTask input{
+  padding:0.5em 1em;
+}
+#addTask div:last-of-type{
+  margin-top:.5em;
+  display:flex;
+  justify-content:space-between;
+}
+.invisible{
+  display:none
+}
+.visible{
+  display:block;
+}
+.task{
+  position:relative;
+  cursor:default;
+}
+.task.detailsHidden{
+  cursor:pointer;
+}
+.taskDetails{
+  display:block;
+  padding:1em;
+  border:2px solid black;
+  border-radius:10px;
+  width:fit-content;
+}
+.task.detailsHidden .taskDetails{
+  display:none;
+}
+.error{
+  color:red;
+}
+#buttons{
+  display:flex;
+  flex-wrap:nowrap;
+  justify-content:space-between;
+  gap:1rem;
+}
+#account{
+  position:relative;
+  cursor:pointer;
+}
+#accountDetails{
+    padding:1em;
+  background:var(--header-background);
+    position:fixed;
+    top:80px;
+    right:10px;
+    font-size:1.2rem;
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+    border:2px solid white;
+    border-radius:10px;
+    z-index:2;
+}
+#accountDetails div{
+  padding-top:0.6em;
+  font-size:1rem;
+}
+#accountDetails div p{
+  margin-top:1em;
+  text-align:center;
+  cursor:pointer;
+}
+@media screen and (max-width:590px){
+  header{
+    flex-direction:column;
+    align-items:center;
+    gap:2em;
+  }
+  #accountDetails{
+    top:130px;
+    right:25%;
+  }
+}

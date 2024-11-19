@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./toDo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="container">
+        <header>
+            <span id="date"></span>
+            <span id="account"></span>
+        </header>
+        <article>
+            <section>
+                <h2>Zadania do wykonania</h2>
+                <div id="taskContainer">    
+
+                </div>
+            </section>
+            <section id="opcje">
+                <button>Dodaj zadanie</button>
+                <button>Sortuj wg.statusu</button>
+                <button>Sortuj wg.daty dodania</button>
+                <button>Sortuj wg.daty realizacji</button>
+            </section>
+
+            <div id="addTask">
+                <div>
+                    <label for="taskTitle">Podaj tytuł zadania:</label>
+                    <input type="text" name="taskTitle" id="taskTitle">
+                </div>
+                <div>
+                    <label for="taskDescription">Podaj opis zadania:</label>
+                    <input type="text" name="taskDescription" id="taskDescription">
+                </div>
+                <div>
+                    <label for="">Podaj datę realizacji zadania</label>
+                    <input type="date" name="taskDate" id="taskDate">
+                </div>
+                <button>Dodaj zadanie</button>
+            </div>
+        </article>
+    </div>
+    <script src="./toDo.js"></script>
+</body>
+</html>

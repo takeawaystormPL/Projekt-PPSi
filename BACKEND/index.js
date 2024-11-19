@@ -1,0 +1,130 @@
+const express = require('express');
+const server = express();
+const path = require("path");
+const cors = require("cors");
+//Skrypty
+const loginToPage = require('./mongoDB/loginToPage');
+const registerToPage = require('./mongoDB/registerToPage');
+const mongooseURI ="mongodb+srv://bartoszmisilo:KFLzclMG4ginzMwH@cluster0.sxaaw.mongodb.net/?retryWrites=true&dbName=aplicationUsers";
+const createTask = require("./mongoDB/addTaskToDatabase");
+const getTasksFromDatabase = require("./mongoDB/getTasksFromDatabase");
+const changeStatusOfTask = require("./mongoDB/changeStatusOfTask");
+const deleteTasksFromDatabase = require(("./mongoDB/deleteTasksFromDatabase"));
+const verifyJWT = require('./modules/JWT/verifyJWT');
+const cookieParser = require('cookie-parser');
+const removeRefreshToken = require("./mongoDB/removeRefreshToken");
+let user={
+    username:"",
+    password:"",
+    accessToken:""
+};
+server.use(cors());
+server.use(express.urlencoded({extended:true,parameterLimit:6,limit:200000}));
+server.use(cookieParser());
+const PORT = process.env.PORT||3500;
+server.use(express.static(path.join(__dirname,'..','RESOURCES')));
+server.use(express.static(path.join(__dirname,'..','CSS')));
+server.use(express.static(path.join(__dirname,'..','FRONTEND')));
+server.use(express.json())
+// GET METHODS
+server.get('/login',(req,res) =>{
+    res.sendFile(path.join(__dirname,'..','HTML','logowanie.html'));
+});
+server.get("/logout",async(req,res)=>{
+    const ifRemovedRefreshToken = await removeRefreshToken(mongooseURI,user.username);
+    console.log(ifRemovedRefreshToken);
+    if(ifRemovedRefreshToken.status!== 204){
+        return res.status(ifRemovedRefreshToken.status).json({message:ifRemovedRefreshToken.message})
+    }
+    user={username:"",password:"",accessToken:""}
+    console.log(user);
+    res.sendStatus(200);
+})
+server.get('/register',(req,res)=>{
+    res.sendFile(path.join(__dirname,"..","HTML","rejestracja.html"));
+});
+server.get('/',(req,res)=>{
+    res.sendFile(path.join(__dirname,"..","HTML","glownaStrona.html"));
+});
+server.get('/logged',(req,res) =>{
+     res.redirect("http://localhost:3000");
+});
+server.get("/api",(req,res)=>{
+    console.log("request");
+    res.json({username:user.username});
+});
+server.get('/loginToPage',async(req,res)=>{
+    const data = await loginToPage(mongooseURI,user);
+    if(data.status==200){
+        res.cookie("jwt",data.refreshToken,{httpOnly:true,maxAge:1000*60*60*24});
+        user = {...user,accessToken:data.accessToken}
+    }
+    res.status(data.status).json({message:data.message});
+});
+server.get('/getTasks',async(req,res)=>{
+    const ifValidAccessToken = verifyJWT(user.accessToken);
+    if(ifValidAccessToken.status !==200){
+        return res.status(ifValidAccessToken.status).json({message:ifValidAccessToken.message});
+    }
+        const getTaskFromDatabase = await getTasksFromDatabase(mongooseURI,user.username);
+        res.status(200).json({tasks:getTaskFromDatabase});
+    
+});
+server.get("/changePassword",async(req,res)=>{
+
+});
+// POST METHODS
+server.post('/registerToPage',async(req,res)=>{
+    const data = await registerToPage(mongooseURI,user);
+    if(data.status == 200){
+        res.redirect("http://localhost:3000");
+    }else{
+        res.json(data);
+    }
+});
+server.post('/deleteTasks',async(req,res)=>{
+    const ifValidAccessToken = verifyJWT(user.accessToken);
+    if(ifValidAccessToken.status !== 200){
+        return res.status(ifValidAccessToken.status).json({message:ifValidAccessToken.message});
+    }
+    const tasks = await JSON.parse(req.body.tasks);
+    const response = await deleteTasksFromDatabase(mongooseURI,tasks);
+     res.status(response.status).json({message:response.message});
+})
+server.post('/createTask',async(req,res)=>{
+    const ifValidAccessToken = verifyJWT(user.accessToken);
+    if(ifValidAccessToken.status !== 200){
+        return res.status(ifValidAccessToken.status).json({message:ifValidAccessToken.message});
+    }
+    const requestData = await req.body; 
+    const responseData = await createTask(mongooseURI,requestData);
+    res.status(responseData.status).json({message:responseData.message});
+  
+});
+server.post("/changeStatus",async(req,res)=>{
+    const ifValidAccessToken = verifyJWT(user.accessToken);
+    if(ifValidAccessToken.status !== 200){
+        return res.status(ifValidAccessToken.status).json({message:ifValidAccessToken.message});
+    }
+    const taskTitle =await req.body;
+    const response = await changeStatusOfTask(mongooseURI,taskTitle);
+    if(response){
+        res.status(200).json({message:"Status changed successfully"});
+    }else{
+        res.status(409).json({
+            message:"Cannot change status of task"
+        })
+  
+    }
+});
+// POST METHODS
+server.post('/userData',async(req,res)=>{
+    const {username,password} = await req.body
+    user = {
+        username:username,
+        password:password
+    }
+    res.json({ifSend:true});
+});
+
+server.listen(3500,()=>console.log("Server working on port:" + PORT));
