@@ -31,13 +31,16 @@ function AccountWindow(props){
        props.changeUserData("");
        window.location.href="http://localhost:3500/";
     }
+    async function changePassword(){
+        return window.location.href="http://localhost:3500/changePassword";
+    }
     return(
         <div id="account" >
         <span onClick={changeVisibility}>Zobacz konto</span>
         <div id="accountDetails" className="invisible">
             <p>Username:{props.username}</p>
             <div>
-                <p>Zmień hasło</p>
+                <p onClick={changePassword}>Zmień hasło</p>
                 <p onClick={logOut}>Wyloguj się</p>
                 <p onClick={changeVisibility}>Zamknij okno</p>
             </div>

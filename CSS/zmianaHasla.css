@@ -1,0 +1,84 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+#container{
+    display:flex;
+    background:url('./doPPSI.png');
+    width:100%;
+    min-height:100vh;
+    justify-content:center;
+    align-items:center;
+}
+form h2{
+    text-align:center;
+    font-family:"Roboto",sans-serif;
+    font-size:1.8rem;
+    font-weight:500;
+}
+form{
+    width:fit-content;
+    display:flex;
+    gap:1em;
+    flex-direction:column;
+    align-items:center;
+    background:white;
+    padding:2em;
+    border:3px solid black;
+    border-radius:10px;
+    font-family:"Afacad Flux", sans-serif;
+    font-size:1.2rem;
+}
+input[type='password']{
+    padding:0.8em 1em;
+    outline:none;
+    border-radius:5px;
+}
+input[type='submit']{
+    padding:0.7em;
+    background:white;
+    transition:all 0.5s ease;
+    color:black;
+    font-size:1.1rem;
+    font-style:italic;
+    border:3px solid black;
+    width:fit-content;
+}
+input[type='submit']:hover{
+    background:black;
+    color:white;
+    cursor:pointer;
+}
+input[type='submit']:focus{
+    outline:1px black solid;
+}
+.error{
+    color:red;
+}
+@media screen and (max-width:550px){
+    form{
+        font-size:1rem;
+        padding:1em;
+    }
+    input[type='submit']{
+        font-size:0.9rem;
+    }
+}
+@media screen and (max-width:464px){
+    label{
+        display:block;
+    }
+    input[type='submit']{
+        display:block;
+    }
+    form h2{
+        font-size:1.5rem;
+    }
+    form{
+        font-size:1rem;
+    }
+    input[type='submit']{
+        font-size:0.8rem;
+    }
+}

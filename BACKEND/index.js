@@ -2,7 +2,7 @@ const express = require('express');
 const server = express();
 const path = require("path");
 const cors = require("cors");
-//Skrypty
+//Moduły
 const loginToPage = require('./mongoDB/loginToPage');
 const registerToPage = require('./mongoDB/registerToPage');
 const mongooseURI ="mongodb+srv://bartoszmisilo:KFLzclMG4ginzMwH@cluster0.sxaaw.mongodb.net/?retryWrites=true&dbName=aplicationUsers";
@@ -13,6 +13,7 @@ const deleteTasksFromDatabase = require(("./mongoDB/deleteTasksFromDatabase"));
 const verifyJWT = require('./modules/JWT/verifyJWT');
 const cookieParser = require('cookie-parser');
 const removeRefreshToken = require("./mongoDB/removeRefreshToken");
+const changePassword = require('./modules/data_validation/changePassword');
 let user={
     username:"",
     password:"",
@@ -34,12 +35,19 @@ server.get("/logout",async(req,res)=>{
     const ifRemovedRefreshToken = await removeRefreshToken(mongooseURI,user.username);
     console.log(ifRemovedRefreshToken);
     if(ifRemovedRefreshToken.status!== 204){
-        return res.status(ifRemovedRefreshToken.status).json({message:ifRemovedRefreshToken.message})
+        return res.status(ifRemovedRefreshToken.status).json({message:ifRemovedRefreshToken.message});
     }
     user={username:"",password:"",accessToken:""}
-    console.log(user);
     res.sendStatus(200);
-})
+});
+server.get("/changePassword",(req,res)=>{
+    console.log(user);
+    const ifValidAccessToken = verifyJWT(user.accessToken);
+    if(ifValidAccessToken.status !==200){
+        return res.status(ifValidAccessToken.status).json({message:ifValidAccessToken.message});
+    }
+    res.sendFile(path.join(__dirname,"..","HTML","zmianaHasla.html"));
+});
 server.get('/register',(req,res)=>{
     res.sendFile(path.join(__dirname,"..","HTML","rejestracja.html"));
 });
@@ -70,9 +78,6 @@ server.get('/getTasks',async(req,res)=>{
         res.status(200).json({tasks:getTaskFromDatabase});
     
 });
-server.get("/changePassword",async(req,res)=>{
-
-});
 // POST METHODS
 server.post('/registerToPage',async(req,res)=>{
     const data = await registerToPage(mongooseURI,user);
@@ -82,6 +87,11 @@ server.post('/registerToPage',async(req,res)=>{
         res.json(data);
     }
 });
+server.post("/changeUserPassword",async(req,res)=>{
+    const passwords = await JSON.parse(req.body.passwords);
+    const response = await changePassword(mongooseURI,user.username,passwords[0],passwords[1]);
+    res.status(response.status).json({message:response.message});
+})
 server.post('/deleteTasks',async(req,res)=>{
     const ifValidAccessToken = verifyJWT(user.accessToken);
     if(ifValidAccessToken.status !== 200){

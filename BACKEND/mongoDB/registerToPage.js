@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const userModel= require('./Models_and_schemas/userModel');
+const checkIfPasswordIsValid = require('../modules/data_validation/checkIfPasswordIsValid');
 // GŁÓWNA FUNKCJA
 async function registerToPage(uri,userData){
     try{
@@ -28,7 +29,7 @@ async function registerToPage(uri,userData){
 }
 // FUNKCJA DODAJĄCA UŻYTKOWNIKA
 function createUser(nickname,password){
-    const ifValidPassword = checkPassword(password);
+    const ifValidPassword = checkIfPasswordIsValid(password);
     if(ifValidPassword.status !== 200){
         return {...ifValidPassword,user:null};
     }
