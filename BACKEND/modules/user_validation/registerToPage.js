@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const userModel= require('./Models_and_schemas/userModel');
-const checkIfPasswordIsValid = require('../modules/data_validation/checkIfPasswordIsValid');
+const userModel= require('../mongoDB/Models_and_schemas/userModel');
+const checkIfPasswordIsValid = require('../modules/user_validation/checkIfPasswordIsValid');
 // GŁÓWNA FUNKCJA
 async function registerToPage(uri,userData){
     try{

@@ -1,6 +1,6 @@
 // importowanie potrzebnych modułów
 const mongoose = require('mongoose');
-const userModel = require('./Models_and_schemas/userModel');
+const userModel = require('../mongoDB/Models_and_schemas/userModel');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 //funkcja logowania 

@@ -3,17 +3,17 @@ const server = express();
 const path = require("path");
 const cors = require("cors");
 //Moduły
-const loginToPage = require('./mongoDB/loginToPage');
-const registerToPage = require('./mongoDB/registerToPage');
+const loginToPage = require('./modules/user_validation/loginToPage');
+const registerToPage = require('./modules/user_validation/registerToPage');
 const mongooseURI ="mongodb+srv://bartoszmisilo:KFLzclMG4ginzMwH@cluster0.sxaaw.mongodb.net/?retryWrites=true&dbName=aplicationUsers";
-const createTask = require("./mongoDB/addTaskToDatabase");
-const getTasksFromDatabase = require("./mongoDB/getTasksFromDatabase");
-const changeStatusOfTask = require("./mongoDB/changeStatusOfTask");
-const deleteTasksFromDatabase = require(("./mongoDB/deleteTasksFromDatabase"));
+const createTask = require("./modules/task_modules/addTaskToDatabase");
+const getTasksFromDatabase = require("./modules/task_modules/getTasksFromDatabase");
+const changeStatusOfTask = require("./modules/task_modules/changeStatusOfTask");
+const deleteTasksFromDatabase = require(("./modules/task_modules/deleteTasksFromDatabase"));
 const verifyJWT = require('./modules/JWT/verifyJWT');
 const cookieParser = require('cookie-parser');
-const removeRefreshToken = require("./mongoDB/removeRefreshToken");
-const changePassword = require('./modules/data_validation/changePassword');
+const removeRefreshToken = require("./modules/JWT/removeRefreshToken");
+const changePassword = require('./modules/user_validation/changePassword');
 let user={
     username:"",
     password:"",

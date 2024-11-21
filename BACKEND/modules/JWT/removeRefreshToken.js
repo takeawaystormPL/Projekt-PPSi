@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const userModel = require('./Models_and_schemas/userModel');
+const userModel = require('../mongoDB/Models_and_schemas/userModel');
 async function removeRefreshToken(mongooseURI,username){
     try{
         await mongoose.connect(mongooseURI);

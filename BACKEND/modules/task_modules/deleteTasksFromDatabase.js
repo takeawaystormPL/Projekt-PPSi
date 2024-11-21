@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const taskModel = require('./Models_and_schemas/taskModel');
+const taskModel = require('../mongoDB/Models_and_schemas/taskModel');
 async function deleteTasksFromDatabase(mongooseURI,tasks){
     try{
         await mongoose.connect(mongooseURI);
