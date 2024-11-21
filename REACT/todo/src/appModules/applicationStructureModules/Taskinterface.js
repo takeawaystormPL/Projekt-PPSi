@@ -58,6 +58,7 @@ export default function Taskinterface(props){
     const tasksToDelete = taskList.filter(el=>el.taskStatus == true);
         const updatedTaskList = taskList.filter(el => el.taskStatus !== true);
         changeTaskList(updatedTaskList);
+        console.log(updatedTaskList);
         return deleteTasksFromDatabase(tasksToDelete);
     }
     // Pobieranie zadań z bazy danych 
@@ -75,7 +76,7 @@ export default function Taskinterface(props){
                     <button onClick={deleteTasks}>Usuń wykonane zadania</button>
             </section>
             <Tasklist taskList ={taskList} username={props.username} changeTaskList={changeTaskList}/>
-            <AddTaskWindow updateInputData={()=>updateInputData(event,changeInputData)} createTask={createTask} showWindow={showWindow}/>
+            <AddTaskWindow updateInputData={(e)=>updateInputData(e,changeInputData)} createTask={createTask} showWindow={showWindow}/>
         </div>
 )
 }

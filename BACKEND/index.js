@@ -33,7 +33,6 @@ server.get('/login',(req,res) =>{
 });
 server.get("/logout",async(req,res)=>{
     const ifRemovedRefreshToken = await removeRefreshToken(mongooseURI,user.username);
-    console.log(ifRemovedRefreshToken);
     if(ifRemovedRefreshToken.status!== 204){
         return res.status(ifRemovedRefreshToken.status).json({message:ifRemovedRefreshToken.message});
     }
@@ -41,7 +40,6 @@ server.get("/logout",async(req,res)=>{
     res.sendStatus(200);
 });
 server.get("/changePassword",(req,res)=>{
-    console.log(user);
     const ifValidAccessToken = verifyJWT(user.accessToken);
     if(ifValidAccessToken.status !==200){
         return res.status(ifValidAccessToken.status).json({message:ifValidAccessToken.message});
@@ -58,7 +56,6 @@ server.get('/logged',(req,res) =>{
      res.redirect("http://localhost:3000");
 });
 server.get("/api",(req,res)=>{
-    console.log("request");
     res.json({username:user.username});
 });
 server.get('/loginToPage',async(req,res)=>{
@@ -82,7 +79,8 @@ server.get('/getTasks',async(req,res)=>{
 server.post('/registerToPage',async(req,res)=>{
     const data = await registerToPage(mongooseURI,user);
     if(data.status == 200){
-        res.redirect("http://localhost:3000");
+        console.log("redirecting");
+        res.status(200).json({message:"User successfully created"});
     }else{
         res.json(data);
     }
@@ -98,7 +96,9 @@ server.post('/deleteTasks',async(req,res)=>{
         return res.status(ifValidAccessToken.status).json({message:ifValidAccessToken.message});
     }
     const tasks = await JSON.parse(req.body.tasks);
+    console.log(req.body);
     const response = await deleteTasksFromDatabase(mongooseURI,tasks);
+    console.log(response);
      res.status(response.status).json({message:response.message});
 })
 server.post('/createTask',async(req,res)=>{
@@ -127,7 +127,6 @@ server.post("/changeStatus",async(req,res)=>{
   
     }
 });
-// POST METHODS
 server.post('/userData',async(req,res)=>{
     const {username,password} = await req.body
     user = {

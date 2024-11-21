@@ -1,6 +1,7 @@
 import React from "react"
 import {useState} from "react";
 export default function Task(props){
+    console.log(props.taskStatus)
     const [taskState,changeTaskState] = useState({
         "taskTitle":props.name,
         "taskDescription":props.description,
@@ -55,12 +56,12 @@ export default function Task(props){
     }
     return(
         <div className={classes} onClick={showDetails} id={props.id}>
-            <p>Task name:{taskState.taskTitle}</p>
+            <p>Tytuł zadania:{taskState.taskTitle}</p>
             <div className="taskDetails">
-            <p>Task name:{taskState.taskTitle}</p>
-            <p>Task description:{taskState.taskDescription}</p>
-            <p>Task date:{taskState.taskDate}</p>
-            <p>Task status:{taskState.taskStatus==false?"false":"true"}</p> 
+            <p>Tytuł zadania:{taskState.taskTitle}</p>
+            <p>Opis:{taskState.taskDescription}</p>
+            <p>Data realizacji:{taskState.taskDate}</p>
+            <p>Status zadania:{taskState.taskStatus==false?"nie wykonane":"wykonane"}</p> 
             <div id="buttons">
                 <button onClick={hideDetails}>Zamknij</button>
                <button onClick={()=>changeStatus(taskState.taskTitle)}>Zmien status zadania</button>

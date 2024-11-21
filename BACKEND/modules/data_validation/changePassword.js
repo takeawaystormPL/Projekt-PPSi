@@ -6,7 +6,7 @@ module.exports = async function changePassword(mongooseURI,username,previousPass
         await mongoose.connect(mongooseURI);
         const ifPasswordIsValid = checkIfPasswordIsValid(newPassword);
         if(ifPasswordIsValid.status !== 200) return ifPasswordIsValid
-        const userWithPreviousPassword = await userModel.findOne({password:previousPassword});
+        const userWithPreviousPassword = await userModel.findOne({username:username,password:previousPassword});
         if(!userWithPreviousPassword){
             return {
                 status:404,

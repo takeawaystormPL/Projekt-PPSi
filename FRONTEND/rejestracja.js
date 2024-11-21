@@ -42,9 +42,10 @@ async function registerUser(){
 if(!response.ok){
     return console.log("Couldn't complete fetch");
 }
-const {status,message} = await response.json();
-if(status!== 200){
+const {message} = await response.json();
+console.log(message);
+if(response.status!== 200){
     return errorParagraph.innerText = message;
 }
-return window.href.location="http://localhost:3500/logged";
+    return window.location.href="http://localhost:3500/login";
 }  

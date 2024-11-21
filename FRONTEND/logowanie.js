@@ -5,6 +5,7 @@ window.history.forward();
 function noBack() {
     window.history.forward();
 }
+// Przypisanie event listenera do linku ze stroną rejestracji
 registerButton.addEventListener('click',()=>{
     window.location.href = "http://localhost:3500/register";
 });
@@ -18,11 +19,11 @@ loginButton.addEventListener('click',async(e)=>{
 async function loginUser(){
     const errorParagraph = document.querySelector('.error');
     const response = await fetch('http://localhost:3500/loginToPage');
-    console.log(response);
-    if(!response.ok){
-        return "Couldn't complete fetch";
+    if(response.status !== 401 && response.status !==403 &&response.status!==200){
+        return console.log("Couldn't complete fetch");
     }
     const data = await response.json();
+    console.log(data);
     if(response.status !== 200){
         return errorParagraph.innerText = data.message;
     }

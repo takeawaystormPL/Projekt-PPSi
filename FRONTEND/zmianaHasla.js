@@ -7,7 +7,6 @@ form.addEventListener('submit',async(e)=>{
     const confirmPassword = document.querySelector("#confirm_password").value;
     const arePasswordsBlank = checkIfNotBlank(previousPassword,newPassword,confirmPassword);
     if(arePasswordsBlank) return false;
-    console.log(arePasswordsBlank);
     if(newPassword !== confirmPassword){
         let errorParagraph=""; 
        errorParagraphs.forEach(el =>el.id == "confirm_password_error"?errorParagraph=el:el.innerText="");
