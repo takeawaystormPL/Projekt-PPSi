@@ -7,11 +7,11 @@ function App() {
   // Wyłączenie mozliwości wrócenia się do strony po wylogowaniu
   function preventBack() {
     window.history.forward(); 
-}
-
+  }
 setTimeout(preventBack(), 0);
-
-window.onunload = function () { null };
+window.addEventListener('unload',(e)=>{
+  return null;
+})
   const [userData,changeUserData] = useState({});
   useEffect(()=>{
     setDate();

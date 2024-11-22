@@ -38,7 +38,7 @@ function AccountWindow(props){
         <div id="account" >
         <span onClick={changeVisibility}>Zobacz konto</span>
         <div id="accountDetails" className="invisible">
-            <p>Username:{props.username}</p>
+            <p>Nazwa użytkownika:{props.username}</p>
             <div>
                 <p onClick={changePassword}>Zmień hasło</p>
                 <p onClick={logOut}>Wyloguj się</p>

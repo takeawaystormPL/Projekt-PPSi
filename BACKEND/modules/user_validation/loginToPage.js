@@ -4,15 +4,21 @@ const userModel = require('../mongoDB/Models_and_schemas/userModel');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 //funkcja logowania 
-async function loginToPage(uri,userData){
+module.exports = async function loginToPage(uri,userData){
         try{
+            // Połączenie z bazą danych 
             await mongoose.connect(uri);
+            // Pobranie nazwy użytkownika,hasła i roli
             const username = userData.username;
             const password = userData.password;
             const role = checkIfAdmin(username);
+            // Zmienna przechowująca uzytkownika o takim nicku i takiej roli
             const ifFound =await userModel.findOne({username:username,role:role});
+            // Spełnia się jeżeli znaleziono
             if(ifFound){
+                // Przypisanie tokenów do użytkownika
                 const {refreshToken,accessToken} = await setJWTTokens(username);
+                // Spełnia się jeżeli znaleziony użytkownik ma takie hasło
                 if(ifFound.password == password){
                     return {
                         status:200,
@@ -20,13 +26,15 @@ async function loginToPage(uri,userData){
                         refreshToken:refreshToken,
                         accessToken:accessToken
                     }
-                }else{
+                }
+                // Spełnia się jeżeli użytkownik ma inne hasło
+                else{
                     return{
                         status:403,
                         message:"Wrong password,try again"
                     }
                 }
-                
+                // Spełnia się jeżeli nie znaleziono
             }else{
                 return{
                     status:401,
@@ -38,6 +46,7 @@ async function loginToPage(uri,userData){
             return console.error(error);
         }
 }
+// Funkcja przypisująca role
 function checkIfAdmin(username){
     switch(username == "takeawaystormPL"){
         case true:{
@@ -47,10 +56,15 @@ function checkIfAdmin(username){
         }
     }
 }
+// Funkcja przypisująca tokeny do użytkownika
 async function setJWTTokens(username){
+    // Utworzenie tokena dostępu
     const accessToken = jwt.sign({"username":username},process.env.ACCESS_TOKEN_SECRET,{expiresIn:60*15});
+    // Utworzenie tokena odświeżania
     const refreshToken = jwt.sign({"username":username},process.env.REFRESH_TOKEN_SECRET,{expiresIn:'1d'});
+    // Przypisanie tokena odświeżenia do użytkownika
     await userModel.updateOne({username:username},{refreshToken:refreshToken});
+    // Zwrócenie tokenu dostępu i odświeżenia
     return {refreshToken,accessToken};
 }
-module.exports = loginToPage;
+// 
