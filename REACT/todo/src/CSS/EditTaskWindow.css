@@ -1,0 +1,30 @@
+.editTask{
+    background:var(--header-background);
+    color:white;
+    position:absolute;
+    z-index:3;
+    left:40%;
+    top:30%;
+    display:flex;
+    flex-direction:column;
+    gap:1em;
+  }
+  .editTask button{
+    background:var(--header-background);
+    color:white;
+    border:2px solid white;
+  }
+  .editTask button:hover{
+    color:var(--header-background);
+    background:white;
+    border:2px solid var(--header-background);
+  }
+  .editTask.invisible{
+    display:none;
+  }
+@media screen and (max-width:925px){
+  .editTask{
+    left:30%;
+    top:1vh;
+  }
+}

@@ -1,4 +1,4 @@
-import './App.css';
+import './CSS/App.css';
 import {useState,useEffect} from 'react';
 import AplicationStructure from "./appModules/ApplicationStructure.js";
 import setDate from './appModules/setDate.js';
@@ -12,6 +12,7 @@ setTimeout(preventBack(), 0);
 window.addEventListener('unload',(e)=>{
   return null;
 })
+// State przechowujący nick użytkownika i funkcja zmieniająca nick
   const [userData,changeUserData] = useState({});
   useEffect(()=>{
     setDate();

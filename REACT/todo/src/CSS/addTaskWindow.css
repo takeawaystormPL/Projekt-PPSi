@@ -1,0 +1,30 @@
+#addTask{
+  background:var(--header-background);
+  color:white;
+    border:3px solid black;
+    border-radius:10px;
+    padding:2em;
+    font-family:"Afacad Flix",sans-serif;
+    width:fit-content;
+    transition:all .3s ease;
+    position:fixed;
+    right:40%;
+    top:30%;
+    z-index:2;
+}
+  #addTask div:last-of-type{
+    margin-top:.5em;
+    display:flex;
+    justify-content:space-between;
+  }
+  #addTask button{
+    background:var(--header-background);
+    color:white;
+    border:2px solid white;
+  }
+  #addTask button:hover{
+    color:var(--header-background);
+    background:white;
+    border:2px solid var(--header-background-color);
+  }
+

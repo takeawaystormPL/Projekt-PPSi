@@ -16,7 +16,7 @@ module.exports = async function changePassword(mongooseURI,username,previousPass
         if(!userWithPreviousPassword){
             return {
                 status:404,
-                message:"Nie ma użytkownika z takim nickiem"
+                message:"Nie ma użytkownika z takim hasłem"
             }
         }
         // Zmiana hasła użytkownika

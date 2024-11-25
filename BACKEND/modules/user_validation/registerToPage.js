@@ -9,6 +9,13 @@ module.exports = async function registerToPage(uri,userData){
         await mongoose.connect(uri);
         // Pobranie nazwy użytkownika i hasła
         const {username,password} = userData;
+        // Sprawdzenie czy nazwa użytkownika została wprowadzona
+        if(username.length == 0){
+            return{
+                status:400,
+                message:"Nie wprowadzono nazwy użytkownika"
+            }
+        }
         // Zmienna przechowująca informacje czy użytkownik z podanym nickiem już istnieje
         const ifExistsWithSameNickname = await userModel.findOne({username:username});
         // Spełnia się jeżeli istnieje
@@ -42,6 +49,7 @@ module.exports = async function registerToPage(uri,userData){
 function createUser(nickname,password){
     // Sprawdzenie czy hasło spełnia wszystkie wymagane warunki
     const ifValidPassword = checkIfPasswordIsValid(password);
+    console.log(ifValidPassword);
     // Spełnia się jeżeli nie spełnia
     if(ifValidPassword.status !== 200){
         return {...ifValidPassword,user:null};

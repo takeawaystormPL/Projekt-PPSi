@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const loginToPage = require('./modules/user_validation/loginToPage');
 const registerToPage = require('./modules/user_validation/registerToPage');
 const createTask = require("./modules/task_modules/addTaskToDatabase");
+const editTask = require('./modules/task_modules/editTask');
 const getTasksFromDatabase = require("./modules/task_modules/getTasksFromDatabase");
 const changeStatusOfTask = require("./modules/task_modules/changeStatusOfTask");
 const deleteTasksFromDatabase = require(("./modules/task_modules/deleteTasksFromDatabase"));
@@ -25,7 +26,7 @@ const mongooseURI ="mongodb+srv://bartoszmisilo:KFLzclMG4ginzMwH@cluster0.sxaaw.
 // Użycie corsa w celu możliwości wejścia na serwer z przeglądarki
 server.use(cors());
 // Ustawienie limitu parametrów dla requestów
-server.use(express.urlencoded({extended:true,parameterLimit:6,limit:200000}));
+server.use(express.urlencoded({extended:true,parameterLimit:7,limit:200000}));
 // Zastosowanie cookie parsera dla ustawiania cookies
 server.use(cookieParser());
 // Zmienna przechowująca port na którym działa serwer
@@ -61,20 +62,9 @@ server.get('/logged',(req,res) =>{
 });
 // Ścieżka do wylogowywania użytkownika
 server.get("/logout",async(req,res)=>{
-    // Sprawdzenie czy token dostępu użytkownika nie wygasł
-    const ifValidAccessToken = verifyJWT(user.accessToken);
-    // Spełnia się jeżeli wygasł
-    if(ifValidAccessToken.status !== 200){
-        return res.status(ifValidAccessToken.status).json({message:ifValidAccessToken.message});
-    }
-    const ifRemovedRefreshToken = removeRefreshToken(mongooseURI,user.username);
-    if(ifRemovedRefreshToken.status !== 204){
-        res.status(ifRemovedRefreshToken.status).json({message:ifRemovedRefreshToken.message})
-    }else{
+        const ifRemovedRefreshToken = removeRefreshToken(mongooseURI,user.username);
         user={username:"",password:"",accessToken:""}
         res.sendStatus(200);
-    }
-    
 });
 // Ścieżka do strony z formularzem rejestracji
 server.get('/register',(req,res)=>{
@@ -109,11 +99,12 @@ server.get('/getTasks',async(req,res)=>{
 // POST METHODS
 // Ścieżka do zarejestrowania użytkownika
 server.post('/registerToPage',async(req,res)=>{
+    console.log('request');
     const ifRegistered = await registerToPage(mongooseURI,user);
     if(ifRegistered.status == 200){
         res.status(200).json({message:"User successfully created"});
     }else{
-        res.json(ifRegistered);
+        res.status(ifRegistered.status).json({message:ifRegistered.message});
     }
 });
 // Ścieżka do zmiany hasła użytkownika
@@ -131,9 +122,7 @@ server.post('/deleteTasks',async(req,res)=>{
          return res.status(ifValidAccessToken.status).json({message:ifValidAccessToken.message});
      }
     const tasks = await JSON.parse(req.body.tasks);
-    console.log(req.body);
     const response = await deleteTasksFromDatabase(mongooseURI,tasks);
-    console.log(response);
      res.status(response.status).json({message:response.message});
 });
 // Ścieżka do utworzenia zadania 
@@ -149,6 +138,12 @@ server.post('/createTask',async(req,res)=>{
     res.status(responseData.status).json({message:responseData.message});
   
 });
+// Ścieżka do edytowania zadania
+server.post('/editTask',async(req,res)=>{
+    const {oldTaskTitle,newTaskTitle,newDeadlineDate,newDescription,newTaskPriority} =JSON.parse(req.body.editedData);
+    const ifEdited =await editTask(mongooseURI,oldTaskTitle,newTaskTitle,newDeadlineDate,newDescription,newTaskPriority);
+    res.status(ifEdited.status).json({message:ifEdited.message});
+})
 // Ścieżka do zmiany statusu zadaania
 server.post("/changeStatus",async(req,res)=>{
     // Sprawdzenie czy token dostępu użytkownika nie wygasł

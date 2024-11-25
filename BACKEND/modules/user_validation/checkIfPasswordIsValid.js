@@ -7,7 +7,7 @@ module.exports = function checkIfPasswordIsValid(password){
     let ifHasSpecialCharacters = false;
     if(password.length < 4){
         return{
-            status:406,
+            status:400,
             message:"Hasło musi zawierać conajmniej 4 litery"
         }
     }
@@ -26,14 +26,14 @@ module.exports = function checkIfPasswordIsValid(password){
     // Spełnia się jeżeli hasło nie zawiera przynajmniej jednej cyfry
     if(!ifHasNumbers){
         return{
-            status:406,
+            status:400,
             message:"Hasło musi zawierać conajmniej jedną cyfrę"
         }
     }
     // Spełnia się jeżeli hasło nie zawiera przynajmniej jednego znaku specjalnego
     if(!ifHasSpecialCharacters){
         return {
-            status:406,
+            status:400,
             message:"Hasło musi zawierać conajmniej jeden znak specjalny"
         }
     }

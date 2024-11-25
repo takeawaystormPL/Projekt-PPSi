@@ -10,7 +10,7 @@ module.exports = async function removeRefreshToken(mongooseURI,username){
         await userModel.updateOne({username:username},{refreshToken:""});
         // Wiadomość zwrotna
         return{
-            status:204,
+            status:200,
             message:"Usunięto token"
         }
     }

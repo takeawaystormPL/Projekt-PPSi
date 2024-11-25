@@ -1,19 +1,28 @@
 import React from "react";
+import "../../CSS/addTaskWindow.css";
 export default function AddTaskWindow(props){
-    
    return(
     <div id="addTask" className="invisible">
     <div>
         <label htmlFor="taskTitle">Podaj tytuł zadania:</label>
-        <input type="text" name="taskTitle" id="taskTitle" onChange={props.updateInputData}/>
+        <input type="text" name="taskTitle" id="taskTitle" onChange={props.updateInputData} />
     </div>
     <div>
         <label htmlFor="taskDescription">Podaj opis zadania:</label>
         <input type="text" name="taskDescription" id="taskDescription" onChange={props.updateInputData}/>
     </div>
     <div>
+        <label>Podaj priorytet zadania</label>
+        <select name="taskPriority" id="taskPriority" onChange={props.updateInputData} defaultValue="2">
+            <option value="1">Mało ważne</option>
+            <option value="2" >Średnio ważne</option>
+            <option value="3">Ważne</option>
+            <option value="4">Bardzo ważne</option>
+        </select>
+    </div>
+    <div>
         <label htmlFor="">Podaj datę realizacji zadania</label>
-        <input type="date" name="taskDate" id="taskDate" onChange={props.updateInputData}/>
+        <input type="date" name="deadlineDate" id="deadlineDate" onChange={props.updateInputData}/>
     </div>
     <p className="error"></p>
     <div>

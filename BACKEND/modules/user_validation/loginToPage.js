@@ -22,7 +22,7 @@ module.exports = async function loginToPage(uri,userData){
                 if(ifFound.password == password){
                     return {
                         status:200,
-                        message:"Successfully logged",
+                        message:"Zalogowano",
                         refreshToken:refreshToken,
                         accessToken:accessToken
                     }
@@ -31,19 +31,22 @@ module.exports = async function loginToPage(uri,userData){
                 else{
                     return{
                         status:403,
-                        message:"Wrong password,try again"
+                        message:"Niepoprawne hasło,spróbuj ponownie"
                     }
                 }
                 // Spełnia się jeżeli nie znaleziono
             }else{
                 return{
                     status:401,
-                    message:"There is no user with such nickname or such role"
+                    message:"Nie ma użytkownika z takim nickiem"
                 }
             }
           
         }catch(error){  
-            return console.error(error);
+            return {
+                status:500,
+                message:error.message
+            }
         }
 }
 // Funkcja przypisująca role

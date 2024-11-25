@@ -1,0 +1,31 @@
+.task{
+    position:relative;
+    cursor:default;
+   
+  }
+  .task.detailsHidden{
+    cursor:pointer;
+  }
+  .task.detailsHidden p{
+    border:2px solid black;
+    border-radius:10px;
+    display:block;
+    width:fit-content;
+    padding:1em;
+  }
+  .task.detailsHidden.expired p{
+    background:red;
+    color:white;
+  }
+  .taskComponentWindow{
+    display:block;
+    padding:1em;
+    border:2px solid black;
+    border-radius:10px;
+    width:fit-content;
+  }
+
+  .task.detailsHidden .taskComponentWindow{
+    display:none;
+  }
+  

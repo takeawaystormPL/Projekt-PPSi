@@ -4,7 +4,9 @@ module.exports = mongoose.Schema({
     "taskName":String,
     "taskDescription":String,
     "taskStatus":Boolean,
-    "taskDate":String,
+    "taskPriority":String,
+    "dateAdded":String,
+    "deadlineDate":String,
     "username":String,
 
 },{collection:"tasks"});

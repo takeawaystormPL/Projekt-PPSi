@@ -11,7 +11,9 @@ module.exports = async function addTaskToDatabase(mongooseURI,data){
             taskName:data.taskName,
             taskDescription:data.taskDescription,
             taskStatus:data.taskStatus,
-            taskDate:data.taskDate,
+            dateAdded:data.dateAdded,
+            taskPriority:data.taskPriority,
+            deadlineDate:data.deadlineDate,
             username:data.username
         });
         // Sprawdzenie czy zadanie z taką nazwą już istnieje

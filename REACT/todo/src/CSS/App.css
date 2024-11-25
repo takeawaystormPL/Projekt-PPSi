@@ -9,6 +9,12 @@
 #container{
   position:relative;
 }
+#taskContainer{
+  margin-top:1rem;
+  display:flex;
+  flex-direction:column;
+  gap:.5rem;
+}
 header{
   background:var(--header-background);
   color:white;
@@ -33,24 +39,8 @@ button:hover{
   background:black;
   color:White;
 }
-#addTask{
-  border:3px solid black;
-  border-radius:10px;
-  padding:2em;
-  font-family:"Afacad Flix",sans-serif;
-  width:fit-content;
-  transition:all .3s ease;
-  position:fixed;
-  right:40%;
-  top:30%;
-}
-#addTask input{
+input,select{
   padding:0.5em 1em;
-}
-#addTask div:last-of-type{
-  margin-top:.5em;
-  display:flex;
-  justify-content:space-between;
 }
 .invisible{
   display:none
@@ -58,27 +48,10 @@ button:hover{
 .visible{
   display:block;
 }
-.task{
-  position:relative;
-  cursor:default;
-}
-.task.detailsHidden{
-  cursor:pointer;
-}
-.taskDetails{
-  display:block;
-  padding:1em;
-  border:2px solid black;
-  border-radius:10px;
-  width:fit-content;
-}
-.task.detailsHidden .taskDetails{
-  display:none;
-}
 .error{
   color:red;
 }
-#buttons{
+.buttons{
   display:flex;
   flex-wrap:nowrap;
   justify-content:space-between;

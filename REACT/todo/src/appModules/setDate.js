@@ -1,11 +1,16 @@
-async function setDate(){
+// Funkcja ustawiająca dzisiejszą date
+export default async function setDate(){
+    // Zmienna przechowująca paragraf z id date
     const dateParagraph = document.querySelector("#date");
+    // Zmienne przechowujące dzisiejszą datę
     const date = new Date();
     const day = date.getDate();
     const month = convertMonth(date.getMonth());
     const year = date.getFullYear();
+    // Zwrócenie dzisiejszej daty
     return dateParagraph.innerText = `${day} ${month} ${year}`;  
 }
+// Funkcja konwertująca miesiąc na wartość tekstową
 function convertMonth(month){
     switch(month){
         case 0:return "Stycznia";
@@ -23,4 +28,3 @@ function convertMonth(month){
         default:console.log("Nie ma takiego miesiaca");
     }
 }
-export default setDate;
