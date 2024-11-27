@@ -44,6 +44,14 @@ form.addEventListener('submit',async(e)=>{
                 errorParagraphs.forEach(el =>el.id == "confirm_password_error"?errorParagraph=el:el.innerText="");
                 break;
             }
+            case 401:{
+                await fetch("http://localhost:3500/logout");
+                return window.location.href="http://localhost:3500/login";
+            }
+            case 403:{
+                await fetch("http://localhost:3500/logout");
+                return window.location.href="http://localhost:3500/login";
+            }
             case 404:{
                 errorParagraphs.forEach(el => el.id == "previous_password_error"?errorParagraph=el:el.innerText="");
                 break;
