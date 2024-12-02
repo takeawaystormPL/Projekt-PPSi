@@ -4,6 +4,7 @@
     const response = await fetch("http://localhost:3500/changeStatus",{
         method:"POST",
         body:new URLSearchParams({title:taskTitle}),
+        credentials:"include",
         headers:{
             'Content-type':'application/x-www-form-urlencoded'
         }

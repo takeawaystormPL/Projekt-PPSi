@@ -62,7 +62,7 @@ function checkIfAdmin(username){
 // Funkcja przypisująca tokeny do użytkownika
 async function setJWTTokens(username){
     // Utworzenie tokena dostępu
-    const accessToken = jwt.sign({"username":username},process.env.ACCESS_TOKEN_SECRET,{expiresIn:60*15});
+    const accessToken = jwt.sign({"username":username},process.env.ACCESS_TOKEN_SECRET,{expiresIn:1000*60*15});
     // Utworzenie tokena odświeżania
     const refreshToken = jwt.sign({"username":username},process.env.REFRESH_TOKEN_SECRET,{expiresIn:'1d'});
     // Przypisanie tokena odświeżenia do użytkownika

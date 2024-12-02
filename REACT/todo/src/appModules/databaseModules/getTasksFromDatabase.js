@@ -1,5 +1,8 @@
 export default async function getTasksFromDatabase(){
-    const response = await fetch("http://localhost:3500/getTasks");
+    const response = await fetch("http://localhost:3500/getTasks",{
+        "method":"GET",
+        "credentials":"include"
+    });
     if(!response.ok || response.status!==200){
         const response2 = await fetch("http://localhost:3500/logout");
         if(response2.status == 200){

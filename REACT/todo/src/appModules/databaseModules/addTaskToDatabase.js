@@ -14,6 +14,7 @@ export default async function addTaskToDatabase(task){
     const response = await fetch("http://localhost:3500/createTask",{
         method:"POST",
         body:new URLSearchParams(requestData),
+        credentials:"include",
         headers:{
             'Content-type':'application/x-www-form-urlencoded'
          }
