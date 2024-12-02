@@ -11,7 +11,7 @@ const createTask = require("./modules/task_modules/addTaskToDatabase");
 const editTask = require('./modules/task_modules/editTask');
 const getTasksFromDatabase = require("./modules/task_modules/getTasksFromDatabase");
 const changeStatusOfTask = require("./modules/task_modules/changeStatusOfTask");
-const deleteTasksFromDatabase = require(("./modules/task_modules/deleteTasksFromDatabase"));
+const deleteTasksFromDatabase = require("./modules/task_modules/deleteTasksFromDatabase");
 const verifyJWT = require('./modules/JWT/verifyJWT');
 const removeRefreshToken = require("./modules/JWT/removeRefreshToken");
 const changePassword = require('./modules/user_validation/changePassword');
@@ -149,6 +149,12 @@ server.post('/createTask',async(req,res)=>{
 });
 // Ścieżka do edytowania zadania
 server.post('/editTask',async(req,res)=>{
+     // Sprawdzenie czy token dostępu użytkownika nie wygasł
+     const ifValidAccessToken = verifyJWT(user.accessToken);
+     // Spełnia się jeżeli wygasł
+     if(ifValidAccessToken.status !== 200){
+         return res.status(ifValidAccessToken.status).json({message:ifValidAccessToken.message});
+     }
     const {oldTaskTitle,newTaskTitle,newDeadlineDate,newDescription,newTaskPriority} =JSON.parse(req.body.editedData);
     const ifEdited =await editTask(mongooseURI,oldTaskTitle,newTaskTitle,newDeadlineDate,newDescription,newTaskPriority);
     res.status(ifEdited.status).json({message:ifEdited.message});

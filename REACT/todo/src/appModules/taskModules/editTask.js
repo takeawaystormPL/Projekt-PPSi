@@ -32,11 +32,12 @@ export default async function editTask(id,inputState,changeInputState,oldTaskTit
             "Content-type":"application/x-www-form-urlencoded"   
         }
     });
-    // Konwersja odpowiedzi na obiekt JSON
-    const responseData = await response.json();
-    // Spełnia się jeżeli status odpowiedzi nie jest równy 200
-    if(response.status !== 200){
-        return console.log(responseData);
+     // Spełnia się jeżeli status odpowiedzi nie jest równy 200
+     if(response.status !== 200){
+        if(response.status == 401 || response.status == 403){
+            await fetch("http://localhost:3500/logout");
+            return window.location.href="http://localhost:3500";
+        }
     }
     // Edycja zadania w liście zadań
     changeTaskState(prevTaskState=>{
