@@ -1,25 +1,28 @@
-import './CSS/App.css';
-import {useState,useEffect} from 'react';
+import "./CSS/App.css";
+import { useState, useEffect } from "react";
 import AplicationStructure from "./appModules/ApplicationStructure.js";
-import setDate from './appModules/setDate.js';
-import setUserData from './appModules/setUserData';
+import setDate from "./appModules/setDate.js";
+import setUserData from "./appModules/setUserData";
 function App() {
   // Wyłączenie mozliwości wrócenia się do strony po wylogowaniu
   function preventBack() {
-    window.history.forward(); 
+    window.history.forward();
   }
-setTimeout(preventBack(), 0);
-window.addEventListener('unload',(e)=>{
-  return null;
-})
-// State przechowujący nick użytkownika i funkcja zmieniająca nick
-  const [userData,changeUserData] = useState({});
-  useEffect(()=>{
+  setTimeout(preventBack(), 0);
+  window.addEventListener("unload", (e) => {
+    return null;
+  });
+  // State przechowujący nick użytkownika i funkcja zmieniająca nick
+  const [userData, changeUserData] = useState({});
+  useEffect(() => {
     setDate();
     setUserData(changeUserData);
-  },[]);
+  }, []);
   return (
-    <AplicationStructure username={userData.username} changeUserData={changeUserData}/>
+    <AplicationStructure
+      username={userData.username}
+      changeUserData={changeUserData}
+    />
   );
 }
 export default App;
