@@ -17,7 +17,7 @@ export default async function deleteTasksFromDatabase(tasks){
         }
         // Spełnia się jeżeli kod HTTP to 401 lub 403
         if(response.status == 403 || 401){
-            await fetch("http://localhost:3500/logout");
+            await fetch("http://localhost:3500/logout",{credentials:'include'});
             return window.location.href="http://localhost:3500/login";
         }
     }

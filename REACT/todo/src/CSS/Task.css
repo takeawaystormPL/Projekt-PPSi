@@ -1,8 +1,10 @@
 .task{
     position:relative;
     cursor:default;
-   
-  }
+}
+.task h2{
+  text-align:center;
+}
   .task.detailsHidden{
     cursor:pointer;
   }
@@ -12,6 +14,7 @@
     display:block;
     width:fit-content;
     padding:1em;
+    background:green;
   }
   .task.detailsHidden.expired p{
     background:red;

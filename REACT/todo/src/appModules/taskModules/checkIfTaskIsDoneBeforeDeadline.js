@@ -9,4 +9,7 @@
     if(todayDate > taskDeadlineDate && !taskState.taskStatus){
         changeClasses("task detailsHidden expired");
     }
+    if(taskState.taskStatus !== true){
+        changeClasses("task detailsHidden expired");
+    }
 }

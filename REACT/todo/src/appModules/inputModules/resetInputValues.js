@@ -33,6 +33,7 @@ export default function resetInputValues(changeInputValues,whichInput,editedTask
         });
         // Ustawienie widoku pól edycyjnych na dane zedytowanego zadania
         taskTitleInput.value=editedTaskData.taskTitle;
+        console.log(editedTaskData.taskTitle);
         taskDescriptionInput.value=editedTaskData.taskDescription;
         taskDateInput.value=new Date(editedTaskData.deadlineDate);
        

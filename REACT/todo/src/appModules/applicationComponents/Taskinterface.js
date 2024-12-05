@@ -17,7 +17,7 @@ export default function Taskinterface(props){
     const [inputDataForTask,changeInputData] = useState({
         "taskTitle":"",
         "taskDescription":"",
-        "taskPriority":"2",
+        "taskPriority":"",
         "deadlineDate":""
     });
     // Zmienna przechowująca state z informacja o metodzie sortowania
@@ -64,12 +64,10 @@ export default function Taskinterface(props){
             return sortByNearestDeadlineDate?(a,b)=>{
                 const aDate = new Date(a.deadlineDate).getTime()
                 const bDate = new Date(b.deadlineDate).getTime()
-                console.log(sortByNearestDeadlineDate);
                return aDate == bDate?0:aDate > bDate?-1:1
             }:(a,b)=>{
                 const aDate = new Date(a.deadlineDate).getTime();
                 const bDate = new Date(b.deadlineDate).getTime();
-                console.log(sortByNearestDeadlineDate);
                return aDate == bDate?0:aDate > bDate?1:-1
             }
         }

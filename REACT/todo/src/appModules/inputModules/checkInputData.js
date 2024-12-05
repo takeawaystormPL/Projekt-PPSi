@@ -2,7 +2,6 @@
 export default function checkInputData(div,taskTitle,deadlineDate){
     // Zmienna przechowująca referencję do paragrafu z klasą error
     const errorParagraph = div.querySelector('.error');
-    console.log(deadlineDate);
     // Spełnia się jeżeli użytkownik nie wprowadził tytułu zadania
     if(taskTitle.length ===0 || taskTitle == "undefined" || undefined || null){
         // Ustawienie wiadomości z błędem

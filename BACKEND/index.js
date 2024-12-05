@@ -58,7 +58,7 @@ server.get('/login',(req,res) =>{
 server.get('/loginToPage',async(req,res)=>{
     const ifLogged = await loginToPage(mongooseURI,user);
     if(ifLogged.status==200){
-        res.cookie("jwt",ifLogged.accessToken,{httpOnly:true,maxAge:new Date().getMilliseconds()+1000*60*15});
+        res.cookie("jwt",ifLogged.accessToken,{httpOnly:true,expires:new Date(Number(Date.now())+1000*60*75)});
     }
     res.status(ifLogged.status).json({message:ifLogged.message});
 });
@@ -69,8 +69,8 @@ server.get('/logged',(req,res) =>{
 // Ścieżka do wylogowywania użytkownika
 server.get("/logout",async(req,res)=>{
         const ifRemovedRefreshToken = removeRefreshToken(mongooseURI,user.username);
-        res.clearCookie("jwt");
-        user={username:"",password:"",accessToken:""}
+        res.cookie("jwt","",{httpOnly:true,expires:new Date(Date.now())});
+        user={username:"",password:""}
         res.sendStatus(200);
 });
 // Ścieżka do strony z formularzem rejestracji
@@ -150,13 +150,13 @@ server.post('/createTask',async(req,res)=>{
 // Ścieżka do edytowania zadania
 server.post('/editTask',async(req,res)=>{
      // Sprawdzenie czy token dostępu użytkownika nie wygasł
-     const ifValidAccessToken = verifyJWT(user.accessToken);
+     const ifValidAccessToken = verifyJWT(req.cookies.jwt);
      // Spełnia się jeżeli wygasł
      if(ifValidAccessToken.status !== 200){
          return res.status(ifValidAccessToken.status).json({message:ifValidAccessToken.message});
      }
-    const {oldTaskTitle,newTaskTitle,newDeadlineDate,newDescription,newTaskPriority} =JSON.parse(req.body.editedData);
-    const ifEdited =await editTask(mongooseURI,oldTaskTitle,newTaskTitle,newDeadlineDate,newDescription,newTaskPriority);
+    const {oldTaskTitle,newTaskTitle,newDeadlineDate,newTaskDescription,newTaskPriority} =JSON.parse(req.body.editedData);
+    const ifEdited =await editTask(mongooseURI,oldTaskTitle,newTaskTitle,newDeadlineDate,newTaskDescription,newTaskPriority);
     res.status(ifEdited.status).json({message:ifEdited.message});
 })
 // Ścieżka do zmiany statusu zadaania

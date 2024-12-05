@@ -10,6 +10,7 @@ export default async function setUserData(stateFunction){
     const data = await response.json();
     // Pobranie z odpowiedzi nazwy użytkownika
     const {username} = data;
+    console.log(username);
     // Ustawienie nazwy użytkownika na tą pobraną z odpowiedzi
     return stateFunction({username:username})
 }

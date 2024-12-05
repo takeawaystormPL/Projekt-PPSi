@@ -4,7 +4,7 @@ export default async function getTasksFromDatabase(){
         "credentials":"include"
     });
     if(!response.ok || response.status!==200){
-        const response2 = await fetch("http://localhost:3500/logout");
+        const response2 = await fetch("http://localhost:3500/logout",{credentials:"include"});
         if(response2.status == 200){
             return window.location.href="http://localhost:3500/";
         }
