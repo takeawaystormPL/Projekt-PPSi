@@ -69,7 +69,7 @@ input:focus{
     outline:1px black solid;
 }
 .toOther{
-    color:lightgray;
+    color:rgb(7, 114, 255);
     text-decoration:underline;
     font-size:1.3rem;
     text-align:center;
