@@ -10,7 +10,6 @@ export default function Tasks(props) {
       .replaceAll("ź", "z")
       .replaceAll("ó", "o")
       .replaceAll("ł", "l");
-    console.log(formattedTaskTitle);
     return formattedTaskTitle;
   }
 
@@ -18,7 +17,6 @@ export default function Tasks(props) {
     <div id="taskContainer">
       {props.taskList.sort(props.sortMethod).map((task, index) => {
         const formattedTaskTitle = formatTaskTitle(task.taskTitle);
-        console.log(formattedTaskTitle);
         return (
           <Task
             id={formattedTaskTitle}

@@ -1,0 +1,22 @@
+URUCHOMIENIE APLIKACJI            
+Zeby odpalić aplikację ListaMistrza,należy wejść do Visual Studio Code i odpalić w konsoli ścieżki do następujących folderów:
+1)Projekt-PPSi\BACKEND
+2)Projekt-PPSi\REACT\todo
+Po wejściu w te dwa foldery należy wpisać następujące komendy w konsoli:
+1)Do Projekt-PPSi\BACKEND npm run dev
+2)Do Projekt-PPSi\REACT\todo npm start
+Po wpisaniu tych dwóch komend w konsoli należy odpalić przeglądarkę i wpisać http://localhost:3500
+LOGOWANIE
+Po wejściu na stronę znajdziemy dwa przyciski:Zaloguj się i Zarejestruj się.W zależności czy posiadamy konto czy nie należy wybrać przycisk w który się kliknie.
+Żeby się zarejestrować należy podać nazwę użytkownika i hasło.Hasło musi zawierać jedną cyfrę oraz jeden znak specjalny.Po kliknięciu zarejestruj się odpalona zostaje strona do logowania do aplikacji.Należy wpisać wcześniej podane dane do rejestracji.
+STRONA GŁÓWNA
+Po zalogowaniu odpalona zostaje strona główna na której znajduje się:
+1)Header z dzisiejszą datą oraz szczegółami zalogowanego użytkownika
+2)Panel do zarządzania zadaniami
+3)Jeżeli zostały dodane wcześniej zadania to kontener z zadaniami
+ZARZĄDZANIE ZADANIAMI
+Żeby dodać zadanie,należy nacisnąć przycisk Dodaj zadanie i wpisać odpowiednie dane.Aby zobaczyć szczegóły zadania,należy kliknąć na etykietę zadania.Żeby zmienić status zadania,należy wejść w szczegóły zadania i nacisnąć przycisk zmień status zadania.Żeby edytować zadanie,należy wejść w szczegóły zadania i nacisnąć przycisk edytuj.
+WYLOGOWANIE
+Żeby wylogować się ze strony,należy nacisnąć przycisk z nazwą użytkownika i wybrać opcję Wyloguj
+ZMIANA HASŁA
+Żeby zmienić hasło,należy nacisnąć przycisk z nazwą użytkownika i wybrać opcję zmień hasło

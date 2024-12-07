@@ -2,7 +2,7 @@
 export default async function addTaskToDatabase(task){
     // Zmienna przechowująca zadanie do dodania
     const requestData = {
-        taskName:task.taskTitle,
+        taskTitle:task.taskTitle,
         taskDescription:task.taskDescription,
         taskStatus:task.taskStatus,
         dateAdded:task.dateAdded,

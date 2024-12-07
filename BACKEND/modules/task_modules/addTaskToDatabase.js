@@ -6,9 +6,10 @@ module.exports = async function addTaskToDatabase(mongooseURI,data){
     try{
         // Połączenie z bazą danych 
         await mongoose.connect(mongooseURI);
+        console.log(data);
         // Zmienna przechowująca zadanie,które ma zostać dodane 
         const task = new taskModel({
-            taskName:data.taskName,
+            taskTitle:data.taskTitle,
             taskDescription:data.taskDescription,
             taskStatus:data.taskStatus,
             dateAdded:data.dateAdded,
@@ -17,7 +18,7 @@ module.exports = async function addTaskToDatabase(mongooseURI,data){
             username:data.username
         });
         // Sprawdzenie czy zadanie z taką nazwą już istnieje
-        const ifSameTaskExists = await taskModel.findOne({taskName:task.taskName});
+        const ifSameTaskExists = await taskModel.findOne({taskTitle:task.taskTitle});
         // Spełnia się jeżeli istnieje
         if(ifSameTaskExists){
             return {

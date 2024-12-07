@@ -7,7 +7,7 @@ module.exports = async function changeStatusOfTask(mongooseURI,taskTitle){
         // Połączenie z bazą danych
         await mongoose.connect(mongooseURI);
         // Zmienna zawierająca informacje czy znaleziono zadanie z podaną nazwą
-        const foundTask = await taskModel.findOne({taskName:taskTitle.title});
+        const foundTask = await taskModel.findOne({taskTitle:taskTitle.title});
         // Jeżeli nie znaleziono
         if(!foundTask){
             return false;

@@ -12,7 +12,7 @@ export default async function getTasksFromDatabase(){
     const tasks = await response.json();
     return tasks.tasks.map(task=>{
         return{
-            taskTitle:task.taskName,
+            taskTitle:task.taskTitle,
             taskDescription:task.taskDescription,
             dateAdded:task.dateAdded,
             deadlineDate:task.deadlineDate,

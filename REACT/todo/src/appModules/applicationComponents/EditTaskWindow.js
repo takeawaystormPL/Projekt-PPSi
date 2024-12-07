@@ -34,7 +34,7 @@ export default function EditTaskWindow(props){
             <p className="error"></p>
         </div>
         <div className="buttons">
-            <button onClick={()=>editTask(props.id,props.inputState,props.changeInputState,props.oldTaskTitle,closeEditTaskWindow,props.changeTaskState)} id="submitChanges">Potwierdź zmiany</button>
+            <button onClick={()=>editTask(props.id,props.inputState,props.changeInputState,props.oldTaskTitle,closeEditTaskWindow,props.changeTaskState,props.changeTaskList)} id="submitChanges">Potwierdź zmiany</button>
             <button onClick={()=>closeEditTaskWindow(props.id)}>Zamknij okno</button>
         </div>
      </div>

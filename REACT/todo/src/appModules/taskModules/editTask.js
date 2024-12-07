@@ -7,7 +7,8 @@ export default async function editTask(
   changeInputState,
   oldTaskTitle,
   closeEditTaskWindow,
-  changeTaskState
+  changeTaskState,
+  changeTaskList
 ) {
   // Zmienna przechowująca referencje do okna edycji zadania
 
@@ -54,6 +55,10 @@ export default async function editTask(
       return (window.location.href = "http://localhost:3500/");
     }
   }
+   // Pobieranie zaktualizowanych zadań z bazy danych 
+  const newTasks = await response.json();
+  // Ustawienie taskList na pobrane zadania z bazy danych 
+  changeTaskList(newTasks.tasks);
   // Edycja zadania w liście zadań
   changeTaskState((prevTaskState) => {
     const editedTask = {

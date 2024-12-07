@@ -8,7 +8,7 @@ module.exports = async function deleteTasksFromDatabase(mongooseURI,tasks){
         await mongoose.connect(mongooseURI);
         // Przechodzenie przez każdy element tablicy z zadaniami do usunięcia i usunięcie go
         tasks.forEach(async task=>{
-            await taskModel.deleteOne({taskName:task.taskTitle});
+            await taskModel.deleteOne({taskTitle:task.taskTitle});
         });
         // Wiadomość zwrotna
         return{

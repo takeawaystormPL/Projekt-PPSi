@@ -6,6 +6,7 @@ import addTaskToDatabase from "../databaseModules/addTaskToDatabase";
 // Funkcja dodająca zadania po kliknięciu przycisku dodaj
 export default function createTask(inputDataForTask,changeInputData,taskList,errorParagraph,changeTaskList,username){
     // Zmienna przechowująca referencje do okienka dodawania zadania
+    console.log(inputDataForTask);
     const window = document.querySelector("#addTask");
     const {taskTitle,deadlineDate} = inputDataForTask
     // Sprawdzenie czy wprowadzone przez użytkownika dane są poprawne

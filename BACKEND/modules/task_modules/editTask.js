@@ -7,13 +7,13 @@ module.exports = async function editTask(mongooseURI,oldTaskTitle,newTaskTitle,n
         // Połączenie z bazą danych 
         await mongoose.connect(mongooseURI);
         // Zmienna przechowująca informacje czy zadanie z podanym tytułem istnieje
-        const taskToEdit = await taskModel.findOne({taskName:oldTaskTitle});
+        const taskToEdit = await taskModel.findOne({taskTitle:oldTaskTitle});
         // Spełnia się jeżeli nie istnieje
         if(!taskToEdit) return{
             status:404,
             message:"Nie ma zadania z takim tytułem"
         }
-        await taskModel.findOneAndUpdate({taskName:oldTaskTitle},{taskName:newTaskTitle,deadlineDate:newDeadlineDate,taskDescription:newTaskDescription,taskPriority:newTaskPriority});
+        await taskModel.findOneAndUpdate({taskTitle:oldTaskTitle},{taskTitle:newTaskTitle,deadlineDate:newDeadlineDate,taskDescription:newTaskDescription,taskPriority:newTaskPriority});
         // Wiadomość zwrotna
         return{
             status:200,

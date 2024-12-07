@@ -111,6 +111,7 @@ export default function Task(props) {
         changeInputState={changeInputState}
         oldTaskTitle={taskState.taskTitle}
         changeTaskState={changeTaskState}
+        changeTaskList={props.changeTaskList}
       />
     </div>
   );

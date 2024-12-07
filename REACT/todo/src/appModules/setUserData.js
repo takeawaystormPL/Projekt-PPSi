@@ -10,7 +10,10 @@ export default async function setUserData(stateFunction){
     const data = await response.json();
     // Pobranie z odpowiedzi nazwy użytkownika
     const {username} = data;
-    console.log(username);
+    // Sprawdzenie czy wczytana została nazwa użytkownika
+    if(username == "" || username==undefined || username==null){
+        window.location.href="http://localhost:3500/";
+    }
     // Ustawienie nazwy użytkownika na tą pobraną z odpowiedzi
     return stateFunction({username:username})
 }

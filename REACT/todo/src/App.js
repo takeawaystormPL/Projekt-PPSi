@@ -5,13 +5,6 @@ import setDate from "./appModules/setDate.js";
 import setUserData from "./appModules/setUserData";
 function App() {
   // Wyłączenie mozliwości wrócenia się do strony po wylogowaniu
-  function preventBack() {
-    window.history.forward();
-  }
-  setTimeout(preventBack(), 0);
-  window.addEventListener("unload", (e) => {
-    return null;
-  });
   // State przechowujący nick użytkownika i funkcja zmieniająca nick
   const [userData, changeUserData] = useState({});
   useEffect(() => {
