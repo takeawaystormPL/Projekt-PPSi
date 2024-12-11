@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import AddTaskWindow from "./AddTaskWindow";
 import Tasklist from "./Tasklist";
 import updateInputData from "../inputModules/updateInputData";
+import resetInputValues from "../inputModules/resetInputValues";
 import getTasksFromDatabase from "../databaseModules/getTasksFromDatabase";
 import createTask from "../taskModules/createTask";
 import deleteTasks from "../taskModules/deleteTasks";
@@ -18,7 +19,15 @@ export default function Taskinterface(props) {
     taskTitle: "",
     taskDescription: "",
     taskPriority: "2",
+    taskCategory: "1",
     deadlineDate: "",
+  });
+  // Zmienna przechowująca stan filtrów
+  const [filterData, changeFilterData] = useState({
+    filterTitle: "",
+    filterByPriority: "",
+    filterByDeadlineDate: "",
+    filterByCategory: "",
   });
   // Zmienna przechowująca state z informacja o metodzie sortowania
   const [sortMethod, changeSortMethod] = useState("status");
@@ -135,7 +144,7 @@ export default function Taskinterface(props) {
   }, [tasks]);
   return (
     <div id="taskInterface">
-      <section id="opcje">
+      <section id="opcje1">
         <button onClick={showWindow}>Dodaj zadanie</button>
         <button onClick={() => deleteTasks(taskList, changeTaskList)}>
           Usuń wykonane zadania
@@ -165,10 +174,64 @@ export default function Taskinterface(props) {
           Sortuj przez ważność
         </button>
       </section>
+      <section id="opcje2">
+        <div>
+          <label htmlFor="filterByTitle">Szukaj tytułu zadania</label>
+          <input
+            type="search"
+            name="filterTitle"
+            id="filterTitle"
+            onChange={(e) => updateInputData(e, changeFilterData)}
+          />
+        </div>
+        <div>
+          <label htmlFor="filterByPriority">Szukaj priorytetu</label>
+          <select
+            id="filterByPriority"
+            name="filterByPriority"
+            defaultValue=""
+            onChange={(e) => updateInputData(e, changeFilterData)}
+          >
+            <option value="">Wszystkie</option>
+            <option value="1">Mało ważne</option>
+            <option value="2">Średnio ważne</option>
+            <option value="3">Ważne</option>
+            <option value="4">Bardzo ważne</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="filterByCategory">Szukaj kategorii</label>
+          <select
+            name="filterByCategory"
+            id="filterByCategory"
+            defaultValue=""
+            onChange={(e) => updateInputData(e, changeFilterData)}
+          >
+            <option value="">Wszystkie</option>
+            <option value="1">Szkoła</option>
+            <option value="2">Sport</option>
+            <option value="3">Rozwój osobisty</option>
+            <option value="4">Zakupy</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="filterByDeadlineDate">Szukaj daty realizacji</label>
+          <input
+            type="date"
+            id="filterByDeadlineDate"
+            name="filterByDeadlineDate"
+            onChange={(e) => updateInputData(e, changeFilterData)}
+          />
+        </div>
+        <button onClick={() => resetInputValues(changeFilterData, "filter")}>
+          Zresetuj filtry
+        </button>
+      </section>
       <Tasklist
         taskList={taskList}
         username={props.username}
         changeTaskList={changeTaskList}
+        filterData={filterData}
         sortMethod={selectSortingMethod()}
       />
       <AddTaskWindow

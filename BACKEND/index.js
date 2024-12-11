@@ -41,7 +41,7 @@ const corsOptions = {
 server.use(cors(corsOptions));
 // Ustawienie limitu parametrów dla requestów
 server.use(
-  express.urlencoded({ extended: true, parameterLimit: 7, limit: 200000 })
+  express.urlencoded({ extended: true, parameterLimit: 8, limit: 200000 })
 );
 // Zastosowanie cookie parsera dla ustawiania cookies
 server.use(cookieParser());
@@ -250,6 +250,7 @@ server.post("/editTask", async (req, res) => {
     newDeadlineDate,
     newTaskDescription,
     newTaskPriority,
+    newTaskCategory,
   } = JSON.parse(req.body.editedData);
   const ifEdited = await editTask(
     mongooseURI,
@@ -257,7 +258,8 @@ server.post("/editTask", async (req, res) => {
     newTaskTitle,
     newDeadlineDate,
     newTaskDescription,
-    newTaskPriority
+    newTaskPriority,
+    newTaskCategory
   );
   res.status(ifEdited.status).redirect("http://localhost:3500/getTasks");
 });

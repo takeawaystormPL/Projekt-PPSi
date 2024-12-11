@@ -22,12 +22,11 @@ export default function checkInputData(div, taskTitle, deadlineDate) {
   //Zmienna przechowująca date wprowadzoną przez użytkownika
   const date = new Date(deadlineDate);
   //   Zmienna przechowująca dzisiejszą datę
-  const todayDate = new Date(Date.now());
+  const todayDate = new Date(Date.now()).setHours(0, 0, 0);
   if (date < todayDate) {
     errorParagraph.innerText = "Nie można podać daty z przeszłości";
     return "error";
   }
-  console.log(date < todayDate);
   errorParagraph.innerText = "";
   return null;
 }

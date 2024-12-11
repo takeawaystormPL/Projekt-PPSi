@@ -11,9 +11,6 @@ function ApplicationStructure(props) {
         />
       </header>
       <article>
-        <section>
-          <h2>Zadania do wykonania</h2>
-        </section>
         <Taskinterface username={props.username} />
       </article>
     </div>

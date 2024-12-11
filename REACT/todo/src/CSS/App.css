@@ -1,5 +1,5 @@
 :root{
-  --header-background:rgb(38, 115, 216)
+  --header-background:rgb(8, 80, 148);
 }
 *{
   margin:0;
@@ -12,7 +12,7 @@
 #taskContainer{
   margin-top:1rem;
   display:flex;
-  flex-direction:column;
+  flex-wrap:wrap;
   gap:.5rem;
 }
 header{
@@ -92,7 +92,11 @@ article{
   text-align:center;
   cursor:pointer;
 }
-#opcje{
+#opcje1,#opcje2{
+  padding:0.7em;
+  border:2px solid black;
+  border-radius:5px;
+  margin-top:0.5em;
   width:100%;
   display:flex;
   gap:0.7em;

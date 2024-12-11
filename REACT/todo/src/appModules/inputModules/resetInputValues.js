@@ -8,6 +8,7 @@ export default function resetInputValues(
   let taskTitleInput = document.querySelector("#taskTitle");
   let taskDescriptionInput = document.querySelector("#taskDescription");
   let taskDateInput = document.querySelector("#deadlineDate");
+  let taskCategoryInput = document.querySelector("#taskCategory");
   // Spełnia się jeżeli funkcje wywołuje okno dodawawania zadania
   if (whichInput == "addTask") {
     // Wyzerowanie state'u pól edycyjnych
@@ -15,15 +16,18 @@ export default function resetInputValues(
       taskTitle: "",
       taskDescription: "",
       taskPriority: "2",
+      taskCategory: "1",
       deadlineDate: "",
     });
     // Wyzerowanie widoku pól edycyjnych
     taskTitleInput.value = "";
     taskDescriptionInput.value = "";
     taskDateInput.value = "";
+    taskCategoryInput.value = "";
+    return;
   }
   // Spełnia się jeżeli funkcje wywołujo okno edycji zadania
-  else {
+  if (whichInput !== "filter") {
     // Przypisanie do zmiennych referencji do pól edycyjnych z okna edycji zadania
     taskTitleInput = document.querySelector(`#${whichInput}_newTaskTitle`);
     taskDescriptionInput = document.querySelector(
@@ -36,11 +40,25 @@ export default function resetInputValues(
       [`${whichInput}_newTaskDescription`]: editedTaskData.taskDescription,
       [`${whichInput}_newTaskPriority`]: editedTaskData.taskPriority,
       [`${whichInput}_newDeadlineDate`]: editedTaskData.deadlineDate,
+      [`${whichInput}_newTaskCategory`]: editedTaskData.taskCategory,
     });
     // Ustawienie widoku pól edycyjnych na dane zedytowanego zadania
     taskTitleInput.value = editedTaskData.taskTitle;
-    console.log(editedTaskData.taskTitle);
     taskDescriptionInput.value = editedTaskData.taskDescription;
-    taskDateInput.value = new Date(editedTaskData.deadlineDate);
+    taskDateInput.value = editedTaskData.deadlineDate;
+    console.log(taskDateInput.value);
+    return;
+  } else {
+    changeInputValues({
+      filterTitle: "",
+      filterByPriority: "",
+      filterByDeadlineDate: "",
+      filterByCategory: "",
+    });
+    document.querySelector("#filterTitle").value = "";
+    document.querySelector("#filterByPriority").value = "";
+    document.querySelector("#filterByDeadlineDate").value = "";
+    document.querySelector("#filterByCategory").value = "";
+    return;
   }
 }

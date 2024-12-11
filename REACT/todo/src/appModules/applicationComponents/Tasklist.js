@@ -12,26 +12,65 @@ export default function Tasks(props) {
       .replaceAll("ł", "l");
     return formattedTaskTitle;
   }
-
+  function filterTasks(task) {
+    const {
+      filterTitle,
+      filterByCategory,
+      filterByDeadlineDate,
+      filterByPriority,
+    } = props.filterData;
+    if (
+      filterTitle == "" &&
+      filterByCategory == "" &&
+      filterByDeadlineDate == "" &&
+      filterByPriority == ""
+    ) {
+      return task;
+    }
+    if (
+      filterTitle !== "" &&
+      !task.taskTitle.toLowerCase().includes(filterTitle.toLowerCase())
+    ) {
+      return false;
+    }
+    if (
+      filterByDeadlineDate !== "" &&
+      !task.deadlineDate.includes(filterByDeadlineDate)
+    ) {
+      console.log("ds");
+      return false;
+    }
+    if (filterByCategory !== "" && task.taskCategory !== filterByCategory) {
+      return false;
+    }
+    if (filterByPriority !== "" && task.taskPriority !== filterByPriority) {
+      return false;
+    }
+    return task;
+  }
   return (
     <div id="taskContainer">
-      {props.taskList.sort(props.sortMethod).map((task, index) => {
-        const formattedTaskTitle = formatTaskTitle(task.taskTitle);
-        return (
-          <Task
-            id={formattedTaskTitle}
-            name={task.taskTitle}
-            description={task.taskDescription}
-            dateAdded={task.dateAdded}
-            deadlineDate={task.deadlineDate}
-            taskPriority={task.taskPriority}
-            taskStatus={task.taskStatus}
-            ifShowing={task.ifShowing}
-            key={formattedTaskTitle}
-            changeTaskList={props.changeTaskList}
-          />
-        );
-      })}
+      {props.taskList
+        .filter((task) => filterTasks(task))
+        .sort(props.sortMethod)
+        .map((task, index) => {
+          const formattedTaskTitle = formatTaskTitle(task.taskTitle);
+          return (
+            <Task
+              id={formattedTaskTitle}
+              name={task.taskTitle}
+              description={task.taskDescription}
+              dateAdded={task.dateAdded}
+              deadlineDate={task.deadlineDate}
+              taskPriority={task.taskPriority}
+              taskStatus={task.taskStatus}
+              taskCategory={task.taskCategory}
+              ifShowing={task.ifShowing}
+              key={formattedTaskTitle}
+              changeTaskList={props.changeTaskList}
+            />
+          );
+        })}
     </div>
   );
 }

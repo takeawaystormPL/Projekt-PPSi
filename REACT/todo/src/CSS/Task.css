@@ -5,11 +5,14 @@
 .task h2{
   text-align:center;
 }
-  .task.detailsHidden{
+.task.detailsHidden{
     cursor:pointer;
-    width:0;
+
   }
-  .task.detailsHidden p{
+.task > div:first-of-type{
+  display:none; 
+}
+  .task.detailsHidden div{
     border:2px solid black;
     border-radius:10px;
     display:block;
@@ -17,7 +20,7 @@
     padding:1em;
     background:green;
   }
-  .task.detailsHidden.expired p{
+  .task.detailsHidden.expired div{
     background:red;
     color:white;
   }

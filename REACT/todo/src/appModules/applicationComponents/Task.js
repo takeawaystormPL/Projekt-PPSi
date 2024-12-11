@@ -11,6 +11,7 @@ export default function Task(props) {
     taskDescription: props.description,
     dateAdded: props.dateAdded,
     taskPriority: props.taskPriority,
+    taskCategory: props.taskCategory,
     deadlineDate: props.deadlineDate,
     taskStatus: props.taskStatus,
     ifShowing: props.ifShowing,
@@ -20,6 +21,7 @@ export default function Task(props) {
     [`${props.id}_newTaskDescription`]: props.description,
     [`${props.id}_newDeadlineDate`]: props.deadlineDate,
     [`${props.id}_newTaskPriority`]: props.taskPriority,
+    [`${props.id}_newTaskCategory`]: props.taskCategory,
   });
   // Zmienna przechowująca state klasy komponentu zadania
   const [divClasses, changeClasses] = useState("task detailsHidden");
@@ -69,7 +71,11 @@ export default function Task(props) {
   );
   return (
     <div className={divClasses} onClick={showTaskDetails} id={props.id}>
-      <p>{taskState.taskTitle}</p>
+      <div>
+        <h2>{taskState.taskTitle} </h2>
+        <p>Data dodania:{taskState.dateAdded} </p>
+        <p>Data realizacji:{taskState.deadlineDate}</p>
+      </div>
       <div id="taskDetails" className="taskComponentWindow">
         <h2>{taskState.taskTitle}</h2>
         <p>Opis:{taskState.taskDescription}</p>
@@ -82,6 +88,16 @@ export default function Task(props) {
             : taskState.taskPriority == 3
             ? "Ważne"
             : "Bardzo ważne"}
+        </p>
+        <p>
+          Kategoria zadania:
+          {taskState.taskCategory == 1
+            ? "Szkoła"
+            : taskState.taskCategory == 2
+            ? "Sport"
+            : taskState.taskCategory == 3
+            ? "Rozwój osobisty"
+            : "Zakupy"}
         </p>
         <p>Data dodania:{taskState.dateAdded}</p>
         <p>Data realizacji:{taskState.deadlineDate}</p>
