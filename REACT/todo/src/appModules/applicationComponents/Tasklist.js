@@ -1,16 +1,47 @@
 import Task from "./Task";
 export default function Tasks(props) {
-  function formatTaskTitle(taskTitle) {
-    let formattedTaskTitle = taskTitle.replaceAll(" ", "_");
-    formattedTaskTitle = taskTitle
-      .replaceAll(" ", "_")
-      .replaceAll("ą", "a")
-      .replaceAll("ę", "e")
-      .replaceAll("ć", "c")
-      .replaceAll("ź", "z")
-      .replaceAll("ó", "o")
-      .replaceAll("ł", "l");
-    return formattedTaskTitle;
+  function generateRandomID() {
+    let randomID = "";
+    const characters = [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "g",
+      "h",
+      "i",
+      "j",
+      "k",  
+      "l",
+      "m",
+      "n",
+      "o",
+      "p",
+      "r",
+      "s",
+      "t",
+      "u",
+      "w",
+      "y",
+      "z",
+      "_",
+      "-",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+    ];
+    for (let i = 0; i < characters.length; i++) {
+      randomID += characters[Math.floor(Math.random() * characters.length)];
+    }
+    return randomID;
   }
   function filterTasks(task) {
     const {
@@ -18,9 +49,11 @@ export default function Tasks(props) {
       filterByCategory,
       filterByDeadlineDate,
       filterByPriority,
+      filterByDescription,
     } = props.filterData;
     if (
       filterTitle == "" &&
+      filterByDescription == "" &&
       filterByCategory == "" &&
       filterByDeadlineDate == "" &&
       filterByPriority == ""
@@ -30,6 +63,14 @@ export default function Tasks(props) {
     if (
       filterTitle !== "" &&
       !task.taskTitle.toLowerCase().includes(filterTitle.toLowerCase())
+    ) {
+      return false;
+    }
+    if (
+      filterByDescription !== "" &&
+      !task.taskDescription
+        .toLowerCase()
+        .includes(filterByDescription.toLowerCase())
     ) {
       return false;
     }
@@ -54,10 +95,10 @@ export default function Tasks(props) {
         .filter((task) => filterTasks(task))
         .sort(props.sortMethod)
         .map((task, index) => {
-          const formattedTaskTitle = formatTaskTitle(task.taskTitle);
+          const generatedID = generateRandomID();
           return (
             <Task
-              id={formattedTaskTitle}
+              id={generatedID}
               name={task.taskTitle}
               description={task.taskDescription}
               dateAdded={task.dateAdded}
@@ -66,7 +107,7 @@ export default function Tasks(props) {
               taskStatus={task.taskStatus}
               taskCategory={task.taskCategory}
               ifShowing={task.ifShowing}
-              key={formattedTaskTitle}
+              key={generatedID}
               changeTaskList={props.changeTaskList}
             />
           );

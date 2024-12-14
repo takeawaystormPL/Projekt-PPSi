@@ -8,7 +8,6 @@ export default function resetInputValues(
   let taskTitleInput = document.querySelector("#taskTitle");
   let taskDescriptionInput = document.querySelector("#taskDescription");
   let taskDateInput = document.querySelector("#deadlineDate");
-  let taskCategoryInput = document.querySelector("#taskCategory");
   // Spełnia się jeżeli funkcje wywołuje okno dodawawania zadania
   if (whichInput == "addTask") {
     // Wyzerowanie state'u pól edycyjnych
@@ -23,7 +22,6 @@ export default function resetInputValues(
     taskTitleInput.value = "";
     taskDescriptionInput.value = "";
     taskDateInput.value = "";
-    taskCategoryInput.value = "";
     return;
   }
   // Spełnia się jeżeli funkcje wywołujo okno edycji zadania
@@ -54,11 +52,13 @@ export default function resetInputValues(
       filterByPriority: "",
       filterByDeadlineDate: "",
       filterByCategory: "",
+      filterByDescription: "",
     });
     document.querySelector("#filterTitle").value = "";
     document.querySelector("#filterByPriority").value = "";
     document.querySelector("#filterByDeadlineDate").value = "";
     document.querySelector("#filterByCategory").value = "";
+    document.querySelector("#filterByDescription").value = "";
     return;
   }
 }

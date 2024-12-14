@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import changeTaskStatus from "../taskModules/changeTaskStatus.js";
 import checkIfTaskIsDoneBeforeDeadline from "../taskModules/checkIfTaskIsDoneBeforeDeadline.js";
 import EditTaskWindow from "./EditTaskWindow.js";
+import deleteTasks from "../taskModules/deleteTasks.js";
 export default function Task(props) {
   // Zmienna przechowująca state zadania
   const [taskState, changeTaskState] = useState({
@@ -59,7 +60,6 @@ export default function Task(props) {
   }
   async function showEditTaskWindow() {
     const editTaskWindow = document.querySelector(`#${props.id}_editTask`);
-    console.log(editTaskWindow);
     editTaskWindow.classList.remove("invisible");
     return true;
   }
@@ -73,37 +73,37 @@ export default function Task(props) {
     <div className={divClasses} onClick={showTaskDetails} id={props.id}>
       <div>
         <h2>{taskState.taskTitle} </h2>
-        <p>Data dodania:{taskState.dateAdded} </p>
-        <p>Data realizacji:{taskState.deadlineDate}</p>
+        <p>Data dodania: {taskState.dateAdded} </p>
+        <p>Data realizacji: {taskState.deadlineDate}</p>
       </div>
       <div id="taskDetails" className="taskComponentWindow">
         <h2>{taskState.taskTitle}</h2>
-        <p>Opis:{taskState.taskDescription}</p>
+        <p>Opis: {taskState.taskDescription}</p>
         <p>
           Ważność zadania:
           {taskState.taskPriority == 1
-            ? "Mało ważne"
+            ? " Mało ważne"
             : taskState.taskPriority == 2
-            ? "Średnio ważne"
+            ? " Średnio ważne"
             : taskState.taskPriority == 3
-            ? "Ważne"
-            : "Bardzo ważne"}
+            ? " Ważne"
+            : " Bardzo ważne"}
         </p>
         <p>
           Kategoria zadania:
           {taskState.taskCategory == 1
-            ? "Szkoła"
+            ? " Szkoła"
             : taskState.taskCategory == 2
-            ? "Sport"
+            ? " Sport"
             : taskState.taskCategory == 3
-            ? "Rozwój osobisty"
-            : "Zakupy"}
+            ? " Rozwój osobisty"
+            : " Zakupy"}
         </p>
-        <p>Data dodania:{taskState.dateAdded}</p>
-        <p>Data realizacji:{taskState.deadlineDate}</p>
+        <p>Data dodania: {taskState.dateAdded}</p>
+        <p>Data realizacji: {taskState.deadlineDate}</p>
         <p>
           Status zadania:
-          {taskState.taskStatus == false ? "nie wykonane" : "wykonane"}
+          {taskState.taskStatus == false ? " nie wykonane" : " wykonane"}
         </p>
         <div className="buttons">
           <button onClick={hideTaskDetails}>Zamknij</button>
@@ -119,6 +119,9 @@ export default function Task(props) {
             Zmien status zadania
           </button>
           <button onClick={showEditTaskWindow}>Edytuj</button>
+          <button onClick={() => deleteTasks(props.changeTaskList, taskState)}>
+            Usuń zadanie
+          </button>
         </div>
       </div>
       <EditTaskWindow

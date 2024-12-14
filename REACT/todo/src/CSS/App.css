@@ -20,6 +20,7 @@ header{
   color:white;
   display:flex;
   justify-content:space-between;
+  align-items:center;
   padding:1em;
   font-family:"Afacad Flux", sans-serif;
   font-weight:300;
@@ -101,7 +102,11 @@ article{
   display:flex;
   gap:0.7em;
   justify-content:center;
+  align-items:center;
   flex-wrap:wrap;
+}
+#opcje2{
+  
 }
 @media screen and (max-width:590px){
   header{
@@ -113,4 +118,7 @@ article{
     top:130px;
     right:25%;
   }
+}
+#opcje1{
+
 }

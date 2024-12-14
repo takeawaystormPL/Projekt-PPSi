@@ -50,7 +50,7 @@ export default function AddTaskWindow(props) {
         </select>
       </div>
       <div>
-        <label htmlFor="">Podaj datę realizacji zadania</label>
+        <label htmlFor="deadlineDate">Podaj datę realizacji zadania</label>
         <input
           type="date"
           name="deadlineDate"
@@ -58,6 +58,7 @@ export default function AddTaskWindow(props) {
           onChange={props.updateInputData}
         />
       </div>
+      <div></div>
       <p className="error"></p>
       <div>
         <button onClick={props.createTask}>Dodaj zadanie</button>

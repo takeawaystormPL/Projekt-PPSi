@@ -28,6 +28,7 @@ export default function Taskinterface(props) {
     filterByPriority: "",
     filterByDeadlineDate: "",
     filterByCategory: "",
+    filterByDescription: "",
   });
   // Zmienna przechowująca state z informacja o metodzie sortowania
   const [sortMethod, changeSortMethod] = useState("status");
@@ -146,7 +147,7 @@ export default function Taskinterface(props) {
     <div id="taskInterface">
       <section id="opcje1">
         <button onClick={showWindow}>Dodaj zadanie</button>
-        <button onClick={() => deleteTasks(taskList, changeTaskList)}>
+        <button onClick={() => deleteTasks(changeTaskList)}>
           Usuń wykonane zadania
         </button>
         <button
@@ -176,7 +177,7 @@ export default function Taskinterface(props) {
       </section>
       <section id="opcje2">
         <div>
-          <label htmlFor="filterByTitle">Szukaj tytułu zadania</label>
+          <label htmlFor="filterTitle">Szukaj tytułu zadania: </label>
           <input
             type="search"
             name="filterTitle"
@@ -185,7 +186,16 @@ export default function Taskinterface(props) {
           />
         </div>
         <div>
-          <label htmlFor="filterByPriority">Szukaj priorytetu</label>
+          <label htmlFor="filterByDescription">Szukaj opisu zadania: </label>
+          <input
+            type="text"
+            name="filterByDescription"
+            id="filterByDescription"
+            onChange={(e) => updateInputData(e, changeFilterData)}
+          />
+        </div>
+        <div>
+          <label htmlFor="filterByPriority">Szukaj priorytetu: </label>
           <select
             id="filterByPriority"
             name="filterByPriority"
@@ -200,7 +210,7 @@ export default function Taskinterface(props) {
           </select>
         </div>
         <div>
-          <label htmlFor="filterByCategory">Szukaj kategorii</label>
+          <label htmlFor="filterByCategory">Szukaj kategorii: </label>
           <select
             name="filterByCategory"
             id="filterByCategory"
@@ -215,7 +225,7 @@ export default function Taskinterface(props) {
           </select>
         </div>
         <div>
-          <label htmlFor="filterByDeadlineDate">Szukaj daty realizacji</label>
+          <label htmlFor="filterByDeadlineDate">Szukaj daty realizacji: </label>
           <input
             type="date"
             id="filterByDeadlineDate"
@@ -241,7 +251,6 @@ export default function Taskinterface(props) {
             inputDataForTask,
             changeInputData,
             taskList,
-            errorParagraph,
             changeTaskList,
             props.username
           )

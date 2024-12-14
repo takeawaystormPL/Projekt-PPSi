@@ -8,7 +8,10 @@ function App() {
   // State przechowujący nick użytkownika i funkcja zmieniająca nick
   const [userData, changeUserData] = useState({});
   useEffect(() => {
-    setDate();
+    setInterval(() => {
+      const dateToSet = setDate();
+      document.querySelector("#date").innerText = dateToSet;
+    }, 1000);
     setUserData(changeUserData);
   }, []);
   return (

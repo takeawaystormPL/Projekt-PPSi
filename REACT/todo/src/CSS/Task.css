@@ -7,8 +7,7 @@
 }
 .task.detailsHidden{
     cursor:pointer;
-
-  }
+}
 .task > div:first-of-type{
   display:none; 
 }
@@ -31,8 +30,21 @@
     border-radius:10px;
     width:fit-content;
   }
-
+ .task .buttons {
+   margin-top: 1em;
+   flex-direction: column;
+ }
   .task.detailsHidden .taskComponentWindow{
     display:none;
   }
-  
+  .task .buttons{
+      display: grid;
+    grid-template-areas: "button1 button2"
+        "button3 button4";
+  }
+@media screen and (max-width:530px){
+  .task .buttons{
+    display:flex;
+    flex-direction:column;
+  }
+}

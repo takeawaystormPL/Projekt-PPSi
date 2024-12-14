@@ -11,7 +11,6 @@ export default async function editTask(
   changeTaskList
 ) {
   // Zmienna przechowująca referencje do okna edycji zadania
-
   const window = document.querySelector(`#${id}_editTask`);
   // Zmienne przechowujące dane do edycji zadania
   const newTaskTitle = inputState[`${id}_newTaskTitle`];
@@ -19,7 +18,6 @@ export default async function editTask(
   const newTaskPriority = inputState[`${id}_newTaskPriority`];
   const newTaskDescription = inputState[`${id}_newTaskDescription`];
   const newTaskCategory = inputState[`${id}_newTaskCategory`];
-  console.log(newTaskCategory);
   // Zmienna przechowująca informacje czy wprowadzone dane są poprawne
   const ifValidInputData = checkInputData(
     window,

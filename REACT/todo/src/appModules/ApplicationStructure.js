@@ -1,10 +1,13 @@
 import React from "react";
 import Taskinterface from "./applicationComponents/Taskinterface.js";
+import setDate from "./setDate.js";
 function ApplicationStructure(props) {
+  const initialDate = setDate();
+  console.log(initialDate);
   return (
     <div id="container">
       <header>
-        <span id="date"></span>
+        <span id="date">{initialDate}</span>
         <AccountWindow
           username={props.username}
           changeUserData={props.changeUserData}

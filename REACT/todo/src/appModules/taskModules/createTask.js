@@ -8,13 +8,12 @@ export default function createTask(
   inputDataForTask,
   changeInputData,
   taskList,
-  errorParagraph,
   changeTaskList,
   username
 ) {
   // Zmienna przechowująca referencje do okienka dodawania zadania
-  console.log(inputDataForTask);
   const window = document.querySelector("#addTask");
+  const errorParagraph = window.querySelector(".error");
   const { taskTitle, deadlineDate } = inputDataForTask;
   // Sprawdzenie czy wprowadzone przez użytkownika dane są poprawne
   const ifValid = checkInputData(window, taskTitle, deadlineDate);
@@ -33,12 +32,14 @@ export default function createTask(
       taskStatus: false,
       ifShowing: false,
     };
+    console.log(newTask);
     // Sprawdzenie czy zadanie z tym samym tytułem juz istnieje
     const ifExists = checkIfSameTaskExists(taskList, newTask);
     // Spełnia się jeżeli istnieje
+    console.log(ifExists);
     if (ifExists) {
       // Ustawienie wiadomości z błędem
-      return (errorParagraph.innerText = "Task with same name already exists");
+      return (errorParagraph.innerText = "Takie same zadanie już istnieje");
     }
     // Dodanie zadania do listy zadań
     changeTaskList((prev) => [...prev, newTask]);
